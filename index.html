@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records du Monde : Higher or Lower</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Écran d'accueil -->
+    <div id="welcome-screen" class="screen active">
+        <div class="container">
+            <div class="welcome-content">
+                <h1 class="main-title">🏆 RECORDS DU MONDE 🏆</h1>
+                <h2 class="subtitle">HIGHER OR LOWER ?</h2>
+                <p class="tagline">Jeu de teambuilding interactif</p>
+                
+                <div class="rules-card card">
+                    <div class="card__body">
+                        <h3>📋 Nouvelles Règles du Jeu</h3>
+                        <ul class="rules-list">
+                            <li>🎯 Devinez si le prochain record est <strong>PLUS HAUT</strong> ou <strong>PLUS BAS</strong></li>
+                            <li>✅ <strong>Bonne réponse = +1 point</strong></li>
+                            <li>❌ <strong>Mauvaise réponse = -1 point</strong></li>
+                            <li>🔄 <strong>Le jeu continue jusqu'à la fin de tous les records !</strong></li>
+                            <li>👥 <strong>Prenez vos décisions en groupe !</strong></li>
+                            <li>📏 <strong>Attention aux unités de mesure pour chaque record !</strong></li>
+                            <li>🎲 Score final peut être négatif - l'important c'est de s'amuser !</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn btn--primary btn--lg start-game-btn" onclick="startGame()">
+                    🚀 COMMENCER LE JEU
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran de jeu -->
+    <div id="game-screen" class="screen">
+        <div class="container">
+            <div class="game-header">
+                <div class="score-section">
+                    <div class="score-item">
+                        <span class="score-label">Score</span>
+                        <span class="score-value" id="current-score">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Progression</span>
+                        <span class="score-value" id="progress-counter">1/13</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="records-container">
+                    <div class="record-card known-record">
+                        <div class="record-header">
+                            <h3 id="current-record-title">Record actuel</h3>
+                        </div>
+                        <div class="record-value">
+                            <span class="value" id="current-record-value">000</span>
+                            <span class="unit" id="current-record-unit">unité</span>
+                        </div>
+                        <div class="record-details">
+                            <p class="holder" id="current-record-holder">Détenteur</p>
+                            <p class="context" id="current-record-context">Contexte</p>
+                        </div>
+                    </div>
+
+                    <div class="vs-separator">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="record-card unknown-record">
+                        <div class="record-header">
+                            <h3 id="next-record-title">Prochain record</h3>
+                        </div>
+                        <div class="record-value mystery">
+                            <span class="value mystery-value" id="next-record-value">?</span>
+                            <span class="unit" id="next-record-unit">unité</span>
+                        </div>
+                        <div class="record-details">
+                            <p class="holder" id="next-record-holder">Détenteur</p>
+                            <p class="context" id="next-record-context">Contexte</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-message">
+                    <p>💭 <em>Prenez le temps de discuter en équipe avant de répondre !</em></p>
+                </div>
+
+                <div class="game-actions">
+                    <button class="btn btn--lg choice-btn higher-btn" onclick="makeGuess('higher')">
+                        ⬆️ PLUS HAUT
+                    </button>
+                    <button class="btn btn--lg choice-btn lower-btn" onclick="makeGuess('lower')">
+                        ⬇️ PLUS BAS
+                    </button>
+                </div>
+
+                <div id="result-feedback" class="result-feedback hidden">
+                    <div class="feedback-content">
+                        <span class="feedback-icon"></span>
+                        <span class="feedback-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran de fin -->
+    <div id="end-screen" class="screen">
+        <div class="container">
+            <div class="end-content">
+                <h1 class="end-title">🎯 TOUS LES RECORDS VUES !</h1>
+                
+                <div class="final-stats card">
+                    <div class="card__body">
+                        <h3>📊 Résultats de l'équipe</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value" id="final-score">0</span>
+                                <span class="stat-label">Score Final</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="correct-answers">0</span>
+                                <span class="stat-label">Bonnes réponses</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="incorrect-answers">0</span>
+                                <span class="stat-label">Mauvaises réponses</span>
+                            </div>
+                        </div>
+                        
+                        <div class="final-message" id="final-message">
+                            <p>Bien joué équipe ! Vous avez vu tous nos records !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="end-actions">
+                    <button class="btn btn--primary btn--lg" onclick="restartGame()">
+                        🔄 REJOUER
+                    </button>
+                    <button class="btn btn--secondary btn--lg" onclick="showWelcome()">
+                        📋 VOIR LES RÈGLES
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
