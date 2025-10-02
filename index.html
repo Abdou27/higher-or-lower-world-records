@@ -107,6 +107,25 @@
                         <span class="feedback-text"></span>
                     </div>
                 </div>
+
+                <!-- NOUVELLE SECTION POUR LES IMAGES -->
+                <div id="record-image-section" class="record-image-section hidden">
+                    <div class="image-container">
+                        <img id="record-image" class="record-image" src="" alt="" />
+                        <div class="image-overlay">
+                            <h4 id="image-title" class="image-title"></h4>
+                            <p id="image-description" class="image-description"></p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn--primary btn--lg continue-btn" onclick="continueToNext()">
+                            ▶️ CONTINUER
+                        </button>
+                        <div class="auto-continue-timer">
+                            <span>Passage automatique dans <span id="timer-countdown">4</span>s</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -153,6 +172,14 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Indicateur de préchargement des images -->
+    <div id="image-preloader" class="hidden">
+        <div class="preloader-content">
+            <div class="loading-spinner"></div>
+            <p>Chargement des images spectaculaires... 🖼️</p>
+        </div>
+    </div>
+
+    <script src="app.js?v=003"></script>
 </body>
 </html>
